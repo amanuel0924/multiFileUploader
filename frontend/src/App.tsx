@@ -1,14 +1,11 @@
-
+import { Navbar } from './componets/Navbar'
 
 function App() {
  
 
   return (
     <>
-      <div>
-       
-      </div>
-     
+     <Navbar/>
     </>
   )
 }
