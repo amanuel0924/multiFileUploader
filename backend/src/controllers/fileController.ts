@@ -38,3 +38,27 @@ export const createFile= async (req: Request, res: Response) => {
         return res.status(500).json({ error: error.message });
     }
 }
+
+export const deleteFile= async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const doc:Document|null = await Document.findByPk(id, {include: ['files']});
+        if (!doc) {
+            return res.status(404).json({ error: "File not found" });
+        }
+     
+        if(doc.files){
+            await Promise.all(
+                doc.files.map(async (file) => {
+                    await fs.promises.unlink(path.join(__dirname, '..','uploads',file.name));
+                    })
+            );
+        }
+
+        await doc.destroy();
+        return res.status(200).json({ message: "File deleted successfully" });
+    }
+    catch (error:any) {
+        return res.status(500).json({ error: error.message });
+    }
+}
