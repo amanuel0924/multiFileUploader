@@ -10,8 +10,8 @@ import path from "path";
 export const createFile= async (req: Request, res: Response) => {
      
     try {
-        if(req.files&&req.body.description){
-            const  document=await Document.create({description:req.body.description});
+        if(req.files&&req.body.description&&req.body.title){
+            const  document=await Document.create({description:req.body.description,title:req.body.title});
             const files= req.files as Express.Multer.File[];
             let createdFiles:File[] =[]
             await Promise.all(

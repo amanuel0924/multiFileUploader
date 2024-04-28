@@ -12,6 +12,7 @@ export class Document extends Model<DocumentAttributes> {
   
     public id!: string;
     public description!: string;
+    public title!: string;
     public files?: File[];
 
    
@@ -23,6 +24,10 @@ Document.init({
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     description: {
         type: DataTypes.STRING,
