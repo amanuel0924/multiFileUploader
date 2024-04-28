@@ -124,3 +124,12 @@ export const updateFile= async (req: Request, res: Response) => {
         return res.status(500).json({ error: error.message });
     }
 }
+
+export const  getAllFile= async (req: Request, res: Response) => {
+    try {
+        const files:Document[] = await Document.findAll({include: ['files']});
+        return res.status(200).json(files);
+    } catch (error:any) {
+        return res.status(500).json({ error: error.message });
+    }
+}
