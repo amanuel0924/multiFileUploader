@@ -27,6 +27,7 @@ export const createFile= async (req: Request, res: Response) => {
             data:{
                 documentId:document.id,
                 description:document.description,
+                title:document.title,
                 files:createdFiles
             }});
         }
@@ -75,6 +76,51 @@ export const getFilesById= async (req: Request, res: Response) => {
         }
         return res.status(200).json(doc);
     } catch (error:any) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+export const updateFile= async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        let createdFiles:File[] =[]
+        const doc:Document|null = await Document.findByPk(id, {include: ['files']});
+        if (!doc) {
+            return res.status(404).json({ error: "File not found" });
+        }
+        if(req.files){
+            const files= req.files as Express.Multer.File[];
+          
+            // delete all files in the folder
+            if(doc.files){
+                await Promise.all(
+                    doc.files.map(async (file) => {
+                        await fs.promises.unlink(path.join(__dirname, '..','uploads',file.name));
+                        await file.destroy();
+                        }
+                ));
+            }
+            // create new files in the folder
+            await Promise.all(
+                files.map(async (file) => {
+                  const name = file.filename;
+                  const size = file.size;
+
+                  const type = path.extname(file.originalname);
+                 const currentFile:File= await File.create({ name, size, type, documentId: doc.id });
+                    createdFiles.push(currentFile);
+                })
+              );
+        }
+        doc.description=req.body.description||doc.description;
+        doc.title=req.body.title||doc.title;
+        await doc.save();
+        return res.status(200).json({ message: "File updated successfully" , data:{
+            documentId:doc.id,
+            description:doc.description,
+            files:createdFiles
+        }});
+    }
+    catch (error:any) {
         return res.status(500).json({ error: error.message });
     }
 }
