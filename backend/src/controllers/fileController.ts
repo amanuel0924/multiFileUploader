@@ -39,6 +39,7 @@ export const createFile= async (req: Request, res: Response) => {
     }
 }
 
+
 export const deleteFile= async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
@@ -59,6 +60,21 @@ export const deleteFile= async (req: Request, res: Response) => {
         return res.status(200).json({ message: "File deleted successfully" });
     }
     catch (error:any) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+export const getFilesById= async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const doc:Document|null = await Document.findByPk(id, {
+            include: ['files']
+        });
+        if (!doc) {
+            return res.status(404).json({ error: "File not found" });
+        }
+        return res.status(200).json(doc);
+    } catch (error:any) {
         return res.status(500).json({ error: error.message });
     }
 }
