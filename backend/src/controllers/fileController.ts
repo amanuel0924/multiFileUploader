@@ -8,7 +8,7 @@ import path from "path";
 
 
 export const createFile= async (req: Request, res: Response,next:NextFunction) => {
-     
+     console.log(req.files);
     try {
         if(req.files&&req.body.description&&req.body.title){
             const  document=await Document.create({description:req.body.description,title:req.body.title});
@@ -25,7 +25,7 @@ export const createFile= async (req: Request, res: Response,next:NextFunction) =
               );
             return res.status(201).json({ message: "Files created successfully" ,
             data:{
-                documentId:document.id,
+                id:document.id,
                 description:document.description,
                 title:document.title,
                 files:createdFiles
@@ -119,8 +119,9 @@ export const updateFile= async (req: Request, res: Response,next:NextFunction) =
         doc.title=req.body.title||doc.title;
         await doc.save();
         return res.status(200).json({ message: "File updated successfully" , data:{
-            documentId:doc.id,
+            id:doc.id,
             description:doc.description,
+            title:doc.title,
             files:createdFiles
         }});
     }
