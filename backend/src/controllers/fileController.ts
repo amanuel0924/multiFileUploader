@@ -1,5 +1,5 @@
 import fs from "fs";
-import { Request, Response} from "express";
+import e, { Request, Response,NextFunction} from "express";
 import { File } from "../models/fileModel";
 import Document from "../models/documentModel";
 import path from "path";
@@ -7,7 +7,7 @@ import path from "path";
 
 
 
-export const createFile= async (req: Request, res: Response) => {
+export const createFile= async (req: Request, res: Response,next:NextFunction) => {
      
     try {
         if(req.files&&req.body.description&&req.body.title){
@@ -33,20 +33,22 @@ export const createFile= async (req: Request, res: Response) => {
         }
         else
         {
-            return res.status(500).json({ message: "File not found"});
+            res.status(400);
+           throw new Error("Please provide all the required fields");
         }
     } catch (error:any) {
-        return res.status(500).json({ error: error.message });
+        next(error);
     }
 }
 
 
-export const deleteFile= async (req: Request, res: Response) => {
+export const deleteFile= async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id } = req.params;
         const doc:Document|null = await Document.findByPk(id, {include: ['files']});
         if (!doc) {
-            return res.status(404).json({ error: "File not found" });
+           res.status(404);
+              throw new Error("File not found");
         }
      
         if(doc.files){
@@ -61,31 +63,34 @@ export const deleteFile= async (req: Request, res: Response) => {
         return res.status(200).json({ message: "File deleted successfully" });
     }
     catch (error:any) {
-        return res.status(500).json({ error: error.message });
+
+        next(error);
     }
 }
 
-export const getFilesById= async (req: Request, res: Response) => {
+export const getFilesById= async (req: Request, res: Response ,next:NextFunction) => {
     try {
         const { id } = req.params;
         const doc:Document|null = await Document.findByPk(id, {
             include: ['files']
         });
         if (!doc) {
-            return res.status(404).json({ error: "File not found" });
+             res.status(404)
+            throw new Error("File not found");
         }
         return res.status(200).json(doc);
     } catch (error:any) {
-        return res.status(500).json({ error: error.message });
+       next(error);
     }
 }
-export const updateFile= async (req: Request, res: Response) => {
+export const updateFile= async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id } = req.params;
         let createdFiles:File[] =[]
         const doc:Document|null = await Document.findByPk(id, {include: ['files']});
         if (!doc) {
-            return res.status(404).json({ error: "File not found" });
+             res.status(404)
+            throw new Error("File not found");
         }
         if(req.files){
             const files= req.files as Express.Multer.File[];
@@ -104,7 +109,6 @@ export const updateFile= async (req: Request, res: Response) => {
                 files.map(async (file) => {
                   const name = file.filename;
                   const size = file.size;
-
                   const type = path.extname(file.originalname);
                  const currentFile:File= await File.create({ name, size, type, documentId: doc.id });
                     createdFiles.push(currentFile);
@@ -121,15 +125,19 @@ export const updateFile= async (req: Request, res: Response) => {
         }});
     }
     catch (error:any) {
-        return res.status(500).json({ error: error.message });
+        next(error);
     }
 }
 
-export const  getAllFile= async (req: Request, res: Response) => {
+export const  getAllFile= async (req: Request, res: Response,next:NextFunction) => {
     try {
         const files:Document[] = await Document.findAll({include: ['files']});
+        if (!files) {
+            res.status(404)
+            throw new Error("Files not found");
+        }
         return res.status(200).json(files);
     } catch (error:any) {
-        return res.status(500).json({ error: error.message });
+       next(error);
     }
 }

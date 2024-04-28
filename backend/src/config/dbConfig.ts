@@ -20,8 +20,6 @@ export async function DBconnection() {
       foreignKey: 'documentId',
       as: 'files',
       onDelete: 'CASCADE',
-    
-     
     });
     db.models.File.belongsTo(db.models.Document, {
       foreignKey: 'documentId',
