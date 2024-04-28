@@ -16,22 +16,17 @@ export async function DBconnection() {
   try {
     await db.authenticate();
 
-    db.beforeSync('sync', async () => {
-      try {
-        db.models.Document.hasMany(db.models.File, {
-          foreignKey: 'documentId',
-          as: 'files',
-          onDelete: 'CASCADE',
-        });
-        db.models.File.belongsTo(db.models.Document, {
-          foreignKey: 'documentId',
-          as: 'document',
-        });
-      } catch (error) {
-        console.error('Error setting up associations:', error);
-      }
+    db.models.Document.hasMany(db.models.File, {
+      foreignKey: 'documentId',
+      as: 'files',
+      onDelete: 'CASCADE',
+    
+     
     });
-
+    db.models.File.belongsTo(db.models.Document, {
+      foreignKey: 'documentId',
+      as: 'document',
+    });
     try {
       await db.sync();
       console.log('Database connected');
