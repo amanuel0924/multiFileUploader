@@ -1,26 +1,27 @@
-import React from 'react';
+import Spinner from "../componets/Spinner";
+import { useFecheSingle } from "../utils/requests";
+import { useParams } from "react-router-dom";
 
-export const ProductPage = () => {
+export const DetailPage = () => {
+  const { id } = useParams();
+  const {data,loading,error} = useFecheSingle(`${id}`)
+  console.log(data)
   return (
-    <div className="bg-gray-100 container mx-auto dark:bg-gray-800 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className=" md:container mx-auto dark:bg-gray-800 py-8 shadow-lg">
+      {loading && <Spinner />}
+      {error &&<h1 className=' bg-red-100 text-red-500 text-xl font-medium text-center border-r-2 p-5 mx-10 mt-36  '>{error.message}</h1>}
+      {data && <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row -mx-4">
         <div className="md:flex-1 px-4">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-              File Name
+              {data?.title}
             </h2>
             <div>
               <span className="font-bold text-gray-700 dark:text-gray-300">
                 File Description:
               </span>
               <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                sed ante justo. Integer euismod libero id mauris malesuada tincidunt.
-                Vivamus commodo nulla ut lorem rhoncus aliquet. Duis dapibus augue
-                vel ipsum pretium, et venenatis sem blandit. Quisque ut erat vitae
-                nisi ultrices placerat non eget velit. Integer ornare mi sed ipsum
-                lacinia, non sagittis mauris blandit. Morbi fermentum libero vel
-                nisl suscipit, nec tincidunt mi consectetur.
+               {data?.description}
               </p>
             </div>
           </div>
@@ -34,72 +35,43 @@ export const ProductPage = () => {
                     #
                   </th>
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    First
+                    file name
                   </th>
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Last
+                    size
                   </th>
                   <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Handle
+                    action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-gray-100 border-b">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Mark
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Otto
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    @mdo
-                  </td>
-                </tr>
-                <tr className="bg-white border-b">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Jacob
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Dillan
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    @fat
-                  </td>
-                </tr>
-                <tr className="bg-gray-100 border-b">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Mark
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Twen
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    @twitter
-                  </td>
-                </tr>
-                <tr className="bg-white border-b">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Bob
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Dillan
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    @fat
-                  </td>
-                </tr>
+                {
+                  data?.files.map((file,index)=>{
+                    return(
+                      <tr key={file.id} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index+1}</td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {file.name}
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                       {file.size}
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <button className=" px-3 py-1 bg-green-600 outline-none text-white border-0 ">download</button>
+                      </td>
+                    </tr>
+                    )
+                }
+                )}
+
               </tbody>
             </table>
             </div>
           </div>
           
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

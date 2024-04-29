@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from './../assets/Logo.png'
+import { Link } from 'react-router-dom'
 
 
 export const Navbar:React.FC = () => {
@@ -11,8 +12,8 @@ export const Navbar:React.FC = () => {
         </div>
         <div className='  '>
              <div className='flex items-center space-x-5 text-teal-700 justify-end md:mr-20 h-full '>
-             <p className=' text-lg font-bold hover:text-teal-800 hover:scale-110 duration-150 hover:underline ' >Upload</p>
-              <p className=' text-lg font-bold hover:text-teal-800 hover:scale-110 duration-150 ' >Files</p>
+             <Link to='/' className=' text-lg font-bold hover:text-teal-800 hover:scale-110 duration-150 hover:underline ' >Upload</Link>
+              <Link to='/files' className=' text-lg font-bold hover:text-teal-800 hover:scale-110 duration-150 ' >Files</Link>
               <button className=' text-2xl font-bold hover:text-teal-800 hover:scale-110 duration-150  '>X</button>
              </div>
         </div>

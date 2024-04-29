@@ -3,6 +3,7 @@ import { FaEdit,FaTrashAlt,FaRegEye } from "react-icons/fa";
 import { Data } from '../utils/requests';
 import { useDelete } from '../utils/requests';
 import Spinner from './Spinner';
+import { Link } from 'react-router-dom';
 
 
 interface TableProps {
@@ -49,8 +50,8 @@ export  const Table:React.FC<TableProps>=({data})=> {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.title}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.description}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium space-x-3">
-                      <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:text-yellow-700 disabled:opacity-50 disabled:pointer-events-none"><FaRegEye size={23} /> </button> 
-                        <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-500 hover:text-gray-700 disabled:opacity-50 disabled:pointer-events-none"><FaEdit size={20}/></button>
+                      <Link to={`/files/update/${item.id}`} type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:text-yellow-700 disabled:opacity-50 disabled:pointer-events-none"><FaEdit size={20}/> </Link> 
+                        <Link to={`/files/${item.id}`} type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-500 hover:text-gray-700 disabled:opacity-50 disabled:pointer-events-none"><FaRegEye size={23} /></Link>
                         <button type="button"   className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-400 hover:text-red-600 disabled:opacity-50 disabled:pointer-events-none" onClick={()=>handeleClick(item.id)}><FaTrashAlt size={20}/></button>
                       </td>
                    </tr>  )

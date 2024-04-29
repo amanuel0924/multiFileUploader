@@ -1,11 +1,11 @@
 import React from 'react'
 import { Table } from '../componets/Table'
-import { useFeche } from '../utils/requests'
+import { useFecheAll } from '../utils/requests'
 import Spinner from '../componets/Spinner'
 
 
 export const Files:React.FC = () => {
-  const {data,loading,error} = useFeche('http://localhost:3031/api/files/')
+  const {data,loading,error} = useFecheAll('http://localhost:3031/api/files/')
 
   return (
     <div className='md:container p-4 mx-auto h-screen shadow-lg '>
