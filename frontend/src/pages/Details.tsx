@@ -1,11 +1,13 @@
 import Spinner from "../componets/Spinner";
 import { useFecheSingle } from "../utils/requests";
 import { useParams } from "react-router-dom";
+import { downloadFile } from "../utils/requests";
 
 export const DetailPage = () => {
   const { id } = useParams();
   const {data,loading,error} = useFecheSingle(`${id}`)
-  console.log(data)
+  
+
   return (
     <div className=" md:container mx-auto dark:bg-gray-800 py-8 shadow-lg">
       {loading && <Spinner />}
@@ -58,7 +60,7 @@ export const DetailPage = () => {
                        {file.size}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <button className=" px-3 py-1 bg-green-600 outline-none text-white border-0 ">download</button>
+                        <button onClick={()=>downloadFile(file.name)} className=" px-3 py-1 bg-green-600 outline-none text-white border-0 ">download</button>
                       </td>
                     </tr>
                     )

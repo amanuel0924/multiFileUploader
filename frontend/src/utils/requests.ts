@@ -1,4 +1,5 @@
 import axios,{AxiosError} from "axios";
+import  FileDownLoad from 'js-file-download'
 import { toast } from "react-toastify";
 import {useState,useEffect} from "react";
 
@@ -153,4 +154,21 @@ export const useUpdate = () => {
 
 return { data, loading, error, updateFile };
   }
+
+  export const downloadFile = async (filename:string)=>{
+    axios.get(`http://localhost:3031/api/files/download/${filename}`,
+      {
+        responseType: 'blob',
+       method: 'GET',
+      }
+    )
+    .then(response => {
+        FileDownLoad(response.data,filename)
+    })
+    .catch(error => {
+        console.error(error);
+    });
+  }
+
+
 
