@@ -16,6 +16,7 @@ function App() {
 			<Route path="/" element={<Upload />} />
 			<Route path="/files" element={ <Files/>} />
       <Route path="/files/:pageNumber" element={ <Files/>} />
+      <Route path="/search/:keyword" element={ <Files/>} />
       <Route path="/files/:id" element={<DetailPage/>} />
       <Route path="/files/update/:id" element={<UpdatePage/>} />
 		</Routes>

@@ -1,8 +1,9 @@
 import fs from "fs";
-import e, { Request, Response,NextFunction} from "express";
+import  { Request, Response,NextFunction} from "express";
 import { File } from "../models/fileModel";
 import Document from "../models/documentModel";
 import path from "path";
+import { Op } from "sequelize";
 
 
 
@@ -134,12 +135,24 @@ export const  getAllFile= async (req: Request, res: Response,next:NextFunction) 
     try {
         const pageSize = 7
         const page = Number(req.query.pageNumber) || 1
+        const keyword = req.query.keyword
+        let where = {};
+        if (keyword) {
+          where = {
+            title: { [Op.like]: `%${keyword}%` }
+          };
+        }
         const count= await Document.count({
             distinct: true,
-            col: 'id'
+            col: 'id',
+            where,
         })
+       
+        
+        
         const Documents= await Document.findAll({
         include: ['files'],
+        where,
         order: [['createdAt', 'DESC']],
         limit: pageSize,
         offset: (page - 1) * pageSize,

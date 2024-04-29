@@ -57,7 +57,7 @@ export const useFecheAll = ({pageNumber,keyword}:UseFetchAllProps) => {
   const [error, setError] = useState<AxiosError>();
   console.log(keyword)
 
-  const orginalURl=pageNumber?`${BASE_URL}?pageNumber=${pageNumber}`:`${BASE_URL}`
+  const orginalURl=pageNumber?`${BASE_URL}?pageNumber=${pageNumber}`:keyword?`${BASE_URL}?keyword=${keyword}`:BASE_URL;
 
 
   useEffect(() => {
