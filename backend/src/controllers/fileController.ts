@@ -142,3 +142,23 @@ export const  getAllFile= async (req: Request, res: Response,next:NextFunction) 
        next(error);
     }
 }
+
+export const downloadFile= async (req: Request, res: Response,next:NextFunction) => {
+try {
+    const filename = req.params.filename;
+
+    
+    // Replace with your logic to find file path
+    console.log(__dirname);
+  
+    res.download(path.join(__dirname, '..','uploads',filename), (err) => {
+      if (err) {
+        res.status(404);
+        throw new Error("File not found");
+      }
+    });
+
+} catch (error:any) {
+    next(error);
+}
+}
