@@ -143,22 +143,17 @@ export const  getAllFile= async (req: Request, res: Response,next:NextFunction) 
     }
 }
 
-export const downloadFile= async (req: Request, res: Response,next:NextFunction) => {
-try {
-    const filename = req.params.filename;
-
-    
-    // Replace with your logic to find file path
-    console.log(__dirname);
+export const downloadFile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const filename = req.params.filename;
+      res.download(path.join(__dirname, '..', 'uploads', filename), (err) => {
+        if (err) {
+          console.error(err.message);
+          res.status(404).send({ message: 'Download was cancelled or file not found.' });
+        }
+      });
   
-    res.download(path.join(__dirname, '..','uploads',filename), (err) => {
-      if (err) {
-        res.status(404);
-        throw new Error("File not found");
-      }
-    });
-
-} catch (error:any) {
-    next(error);
-}
-}
+    } catch (error: any) {
+      next(error);
+    }
+  }
