@@ -6,5 +6,4 @@ export function validateSize(files: FileList) {
     }
     return true;
 
-
   }
