@@ -22,6 +22,17 @@ export type Data= {
   files: File[];
 }
 
+export type FileData = {
+files:Data[];
+  page:number;
+  pages:number;
+}
+
+interface UseFetchAllProps {
+  pageNumber?: string;
+  keyword?: string;
+}
+
 const BASE_URL = "http://localhost:3031/api/files";
 
 export const postRequest = async (url: string, data: FormData) => {
@@ -39,15 +50,20 @@ export const postRequest = async (url: string, data: FormData) => {
   }
 };
 
-export const useFecheAll = (url: string) => {
-  const [data, setData] = useState<Data[]|null>(null);
+export const useFecheAll = ({pageNumber,keyword}:UseFetchAllProps) => {
+
+  const [data, setData] = useState<FileData|null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AxiosError>();
+  console.log(keyword)
+
+  const orginalURl=pageNumber?`${BASE_URL}?pageNumber=${pageNumber}`:`${BASE_URL}`
+
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(url)
+      .get(`${orginalURl}`)
       .then((response) => {
         setData(response.data);
       })
@@ -57,7 +73,7 @@ export const useFecheAll = (url: string) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [url]);
+  }, [orginalURl]);
 
 return { data, loading, error };
 

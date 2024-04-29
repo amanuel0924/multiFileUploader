@@ -132,12 +132,27 @@ export const updateFile= async (req: Request, res: Response,next:NextFunction) =
 
 export const  getAllFile= async (req: Request, res: Response,next:NextFunction) => {
     try {
-        const files:Document[] = await Document.findAll({include: ['files']});
-        if (!files) {
+        const pageSize = 7
+        const page = Number(req.query.pageNumber) || 1
+        const count= await Document.count({
+            distinct: true,
+            col: 'id'
+        })
+        const Documents= await Document.findAll({
+        include: ['files'],
+        order: [['createdAt', 'DESC']],
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+        });
+        if (!Documents) {
             res.status(404)
             throw new Error("Files not found");
         }
-        return res.status(200).json(files);
+        return res.status(200).json({
+            files:Documents,
+            page,
+            pages: Math.ceil(count / pageSize),
+        });
     } catch (error:any) {
        next(error);
     }

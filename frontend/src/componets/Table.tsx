@@ -1,17 +1,18 @@
 import React from 'react';
 import { FaEdit,FaTrashAlt,FaRegEye } from "react-icons/fa";
-import { Data } from '../utils/requests';
+import { FileData} from '../utils/requests';
 import { useDelete } from '../utils/requests';
 import Spinner from './Spinner';
 import { Link } from 'react-router-dom';
 
 
+
 interface TableProps {
-  data: Data[];
+  data:FileData ;
 }
 
 export  const Table:React.FC<TableProps>=({data})=> {
-  
+  const{files} =data
   const {loading,error,deleteFile}=useDelete('http://localhost:3031/api/files/');
 
   const handeleClick = (id:string)=>{
@@ -43,7 +44,7 @@ export  const Table:React.FC<TableProps>=({data})=> {
             </thead>
             <tbody>
               {
-                data.map((item,index)=>{
+               files.map((item,index)=>{
                   return(
                     <tr  className="odd:bg-white even:bg-gray-100">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{index+1}</td>
@@ -62,6 +63,7 @@ export  const Table:React.FC<TableProps>=({data})=> {
         </div>
       </div>
     </div>
+    
   </div>
    </>
   );
