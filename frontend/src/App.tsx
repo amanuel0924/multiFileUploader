@@ -1,6 +1,7 @@
 import { Navbar } from './componets/Navbar'
 //import { Upload } from './pages/Upload'
-import { Files } from './pages/Files';
+// import { Files } from './pages/Files';
+import {ProductPage} from './pages/Details'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +13,8 @@ function App() {
     <>
      <Navbar/>
       {/* <Upload/> */}
-      <Files/>
+      {/* <Files/> */}
+      <ProductPage/>
       <ToastContainer />
     </>
   )
