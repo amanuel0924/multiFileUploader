@@ -55,6 +55,28 @@ return { data, loading, error };
 
 }
 
+export const usePost = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<AxiosError>();
+
+  const postData = async (data:FormData) => {
+    setLoading(true);
+    axios.post(BASE_URL, data)
+      .then(() => {
+        toast.success("Data posted successfully");
+      })
+      .catch((error) => {
+        setError(error);
+        toast.error(error.message)
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  return { loading, error, postData };
+};
+
 
 export const useDelete = () => {
 
