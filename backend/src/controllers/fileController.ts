@@ -20,6 +20,7 @@ export const createFile= async (req: Request, res: Response,next:NextFunction) =
                   const name = file.filename;
                   const size = file.size;
                   const type = path.extname(file.originalname);
+
                   const currentFile:File= await File.create({ name, size, type, documentId: document.id });
                     createdFiles.push(currentFile);
                 })
@@ -34,10 +35,12 @@ export const createFile= async (req: Request, res: Response,next:NextFunction) =
         }
         else
         {
+            
             res.status(400);
            throw new Error("Please provide all the required fields");
         }
     } catch (error:any) {
+        console.log(error)
         next(error);
     }
 }
