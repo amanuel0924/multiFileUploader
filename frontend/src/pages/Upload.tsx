@@ -73,24 +73,24 @@ export const Upload:React.FC = () => {
 
 
   return (
-    <div className='container  mt-6 h-screen  shadow-lg mx-auto'>
-        <form onSubmit={onsubmitHandler} className='flex flex-col mx-6  border-4 p-2 '  >
-           <div ref={wraperRef} onDragEnter={handleDragEnter} onDragStart={handleDragEnter} onDragLeave={handleDragLeave} onDrop={onDropHandler}   className='w-[500px] border-dashed border-4 border-gray-600  rounded-lg relative flex items-center justify-center bg-teal-50 hover:cursor-pointer hover:opacity-50 '>
+    <div className='container  mt-6 h-screen flex justify-center items-center  mx-auto'>
+        <form onSubmit={onsubmitHandler} className='flex flex-col items-center mx-6    p-2 h-screen w-[400px]  md:w-[500px] '  >
+           <div ref={wraperRef} onDragEnter={handleDragEnter} onDragStart={handleDragEnter} onDragLeave={handleDragLeave} onDrop={onDropHandler}   className='w-full border-dashed border-4 border-gray-600  rounded-lg relative flex items-center justify-center bg-teal-50 hover:cursor-pointer hover:opacity-50 '>
            <div className=' text-center relative '>
-               <img src={fileIlustration} alt='file ilustration' className=' w-full ' />
-               <p className=' absolute left-24 font-bold text-lg text-gray-600 top-1/2  '><FaCloudUploadAlt size={48} className=' absolute top-10 left-24'/> Drag & Drop file here or click</p>
+               <img src={fileIlustration} alt='file ilustration' className=' w-full shadow-xl ' />
+               <p className=' absolute md:left-24 left-16 font-bold sm:text-lg text-small text-gray-600 top-1/2 '><FaCloudUploadAlt size={38} className=' absolute top-10 left-24'/> Drag & Drop file here or click</p>
              </div>
                 <input type='file' className=' absolute top-0 left-0 w-full h-full opacity-0 hover:cursor-pointer ' multiple   onChange={handleFileChange} disabled={files&&files.length>5?true:false}  />
            </div>
-            <div className='w-[500px] mt-2 '>
+            <div className='w-full mt-2   '>
               <label htmlFor='title' className='text-center text-md font-bold text-gray-700 '>Title</label>
-              <input type='text' name='title' required id='title' value={title} onChange={(e)=>setTitle(e.target.value)} className='w-full outline-none h-8 border-2 border-gray-500 rounded-lg' />
+              <input type='text' name='title' required id='title' value={title} onChange={(e)=>setTitle(e.target.value)} className='w-full outline-none h-10 shadow-lg border-2 p-2 border-gray-500 rounded-lg' />
             </div>
-           <div className='w-[500px] mt-2 '>
+           <div className='w-full mt-2 '>
             <label htmlFor=' description' className='text-center text-md font-bold text-gray-700 '>description</label>
-            <textarea name='description' required id='description' value={description} onChange={handleDescriptionChange} className='w-full outline-none h-15 border-2 border-gray-500 rounded-lg'></textarea>
+            <textarea name='description' required id='description' value={description} onChange={handleDescriptionChange} className='w-full outline-none  p-2 h-20 shadow-lg  border-2 border-gray-500 rounded-lg'></textarea>
            </div>
-           <button className='py-3 mt-1 px-12 text-white text-center bg-teal-800 rounded-lg w-fit' type='submit'>Upload</button>
+           <button className='py-2 mt-1 px-4 shadow-xl self-start md:px-12 text-white text-center bg-teal-800 rounded-lg w-fit hover:scale-105 duration-200 hover:shadow-xl ' type='submit'>Upload</button>
 
      </form>
     </div>
