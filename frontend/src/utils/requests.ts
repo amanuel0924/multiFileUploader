@@ -9,7 +9,7 @@ interface UseFetchAllProps {
   keyword?: string;
 }
 
-const BASE_URL = "http://localhost:3031/api/files";
+const BASE_URL = "https://multifileuploader.onrender.com";
 
 export const postRequest = async (url: string, data: FormData) => {
   try {
@@ -126,7 +126,7 @@ return { data, loading, error, updateFile };
   }
 
   export const downloadFile = async (filename:string)=>{
-    axios.get(`http://localhost:3031/api/files/download/${filename}`,
+    axios.get(`${BASE_URL}/api/files/download/${filename}`,
       {
         responseType: 'blob',
        method: 'GET',
