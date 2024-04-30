@@ -22,7 +22,7 @@ export const Files:React.FC = () => {
 
   console.log(data)
     return (
-      <div className='md:container flex flex-col p-4 mx-auto h-screen  shadow-lg '>
+      <div className='md:container flex flex-col p-4 mx-auto h-screen  shadow-lg  '>
          {loading && <Spinner />}
           {error &&<h1 className=' bg-red-100 text-red-500 text-xl font-medium text-center border-r-2 p-5 mx-10 mt-36  '>{error.message}</h1>}
           {data?.files &&data?.files?.length>0&& <Table data={data} setOpen={setOpen} setid={setId} loading={deleteloading} error={deleteerror} />}

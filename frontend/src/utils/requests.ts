@@ -161,6 +161,7 @@ export const useUpdate = () => {
       setData(data);
       setError(error);
        toast.success("File Updated successfully");
+       
      }).catch((error) => {
        toast.error(error.message);
      }).finally(() => {

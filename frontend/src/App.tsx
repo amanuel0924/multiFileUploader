@@ -6,12 +6,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Upload } from './pages/Upload';
 import { DetailPage } from './pages/Details';
 import { UpdatePage } from './pages/UpdatePage';
+import { Footer } from './componets/Footer';
+import { useState } from 'react';
+
 
 function App() {
+  const [darks, setDarks] = useState<string>("dark");
+  const handleDark = () => {
+    setDarks(darks === "dark" ? "" : "dark");
+  };
  
   return (
-    <><BrowserRouter>
-     <Navbar/>
+    <div className={`${darks}`}>
+     <div className='dark:bg-gray-800'>
+     <BrowserRouter>
+     <Navbar  darks={darks} handleDark={handleDark}  />
 		<Routes>
 			<Route path="/" element={<Upload />} />
 			<Route path="/files" element={ <Files/>} />
@@ -20,9 +29,11 @@ function App() {
       <Route path="/files/detail/:id" element={<DetailPage/>} />
       <Route path="/files/update/:id" element={<UpdatePage/>} />
 		</Routes>
+    <Footer/>
   <ToastContainer />
   </BrowserRouter>
-    </>
+     </div>
+    </div>
   )
 }
 
