@@ -4,6 +4,7 @@ import cors from 'cors';
 import { DBconnection } from './config/dbConfig';
 import  fileRoutes  from './routes/fileRoutes';
 import { notFound,errorHandler} from './middleware/errorHandler'
+import morgan from 'morgan';
 
 dotenv.config();
 DBconnection();
@@ -17,10 +18,12 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/files', fileRoutes);
+
 
 app.use("*",notFound);
 app.use(errorHandler);
