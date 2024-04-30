@@ -39,7 +39,7 @@ export const Navbar:React.FC <NavProps> = ({darks,handleDark}) => {
         </div>
         <div className='  '>
              <div className='flex items-center space-x-2 sm:space-x-5  text-teal-700 justify-end md:mr-20 h-full '>
-             <Link to='/' className=' text-sm sm:text-md font-bold hover:text-teal-800 hover:scale-110 duration-150 hover:underline ' >Upload</Link>
+             <Link to='/upload' className=' text-sm sm:text-md font-bold hover:text-teal-800 hover:scale-110 duration-150 hover:underline ' >Upload</Link>
               <Link to='/files' className=' text-sm md:text-md font-bold hover:text-teal-800 hover:scale-110 duration-150 hover:underline ' >Files</Link>
               <button onClick={() => handleDark()}  className='  font-bold hover:text-teal-800 hover:scale-110 duration-150  '>  {darks ? <FaSun size={24} /> : <FaRegMoon size={24} />}</button>
              </div>

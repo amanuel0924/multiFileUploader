@@ -23,9 +23,7 @@ export  const Table:React.FC<TableProps>=({data,loading,error,setid,setOpen})=> 
 
   return (
    <>
-   {loading &&<Spinner /> }
-   {error && <h1 className=' bg-red-100 text-red-500 text-xl font-medium text-center border-r-2 p-5 mx-10 mt-36 dark:bg-teal-900 '>{error?.message}</h1>}
-    <div className="flex flex-col dark:bg-gray-700 mt-3">
+   {loading ?<Spinner  />:error?<h1 className=' bg-red-100 text-red-500 text-xl font-medium text-center border-r-2 p-5 mx-10 mt-36 dark:bg-teal-900 '>{error?.message}</h1>:( <div className="flex flex-col dark:bg-gray-700 mt-3">
     <div className="-m-1.5 overflow-x-auto">
       <div className="p-1.5 min-w-full inline-block align-middle  ">
         <div className="overflow-hidden rounded-lg ">
@@ -63,7 +61,8 @@ export  const Table:React.FC<TableProps>=({data,loading,error,setid,setOpen})=> 
       </div>
     </div>
    
-  </div>
+  </div>) }
+   
    </>
   );
 }

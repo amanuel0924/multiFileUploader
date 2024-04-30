@@ -66,8 +66,7 @@ export const Upload:React.FC = () => {
     } else {
      toast.error('please fill all fields')
       setFile(null);
-      setDescription('');
-      setTitle('');
+      
     }
   }
 
