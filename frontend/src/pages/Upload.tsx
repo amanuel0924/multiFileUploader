@@ -1,9 +1,9 @@
 import React,{useRef,useState} from 'react'
 import fileIlustration from '../assets/fileIlustration.svg'
+import { postRequest } from '../utils/requests'
 import { validateSize } from '../utils/fileValidator'
 import {FaCloudUploadAlt} from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { usePost } from '../utils/requests'
 
 
 
@@ -13,7 +13,6 @@ export const Upload:React.FC = () => {
   const [title,setTitle] = useState('')
   const formData:FormData = new FormData();
   const [files,setFile] = useState<FileList | null>(null)
-  const {loading,postData}=usePost()
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -60,7 +59,7 @@ export const Upload:React.FC = () => {
       }
       formData.append('description', description);
       formData.append('title', title);
-      postData(formData);
+      postRequest(`https://multifileuploader.onrender.com/api/files`, formData);
       setDescription('');
       setTitle('');
       setFile(null);
@@ -90,7 +89,7 @@ export const Upload:React.FC = () => {
             <label htmlFor=' description' className='text-center text-md font-bold text-gray-700 dark:text-white '>description</label>
             <textarea name='description' required id='description' value={description} onChange={handleDescriptionChange} className='w-full outline-none  p-2 h-20 shadow-lg  border-2 border-gray-500 rounded-lg'></textarea>
            </div>
-           {loading&&<button className='py-2 mt-1 px-4 shadow-xl self-start md:px-12 text-white text-center bg-teal-800 rounded-lg w-fit hover:scale-105 duration-200 hover:shadow-xl ' type='submit'>Upload</button>}
+           <button className='py-2 mt-1 px-4 shadow-xl self-start md:px-12 text-white text-center bg-teal-800 rounded-lg w-fit hover:scale-105 duration-200 hover:shadow-xl ' type='submit'>Upload</button>
 
      </form>
     </div>
