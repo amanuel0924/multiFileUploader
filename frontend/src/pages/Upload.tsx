@@ -59,7 +59,7 @@ export const Upload:React.FC = () => {
       }
       formData.append('description', description);
       formData.append('title', title);
-      postRequest('http://localhost:3031/api/files/', formData);
+      postRequest(`https://multifileuploader.onrender.com/api/files`, formData);
       setDescription('');
       setTitle('');
       setFile(null);
