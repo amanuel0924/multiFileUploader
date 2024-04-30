@@ -15,8 +15,6 @@ export const UpdatePage:React.FC = () => {
     const navigate = useNavigate()
     const {data,loading,error} = useFecheSingle(`${id}`)
     const {loading:updateLoading,updateFile}= useUpdate()
-    
- 
   const wraperRef = useRef<HTMLDivElement>(null)
   const [description,setDescription] = useState('')
   const [title,setTitle] = useState('')
@@ -57,6 +55,10 @@ export const UpdatePage:React.FC = () => {
 
     }
   };
+  
+  const onCancelHandler = ()=>{
+    navigate('/')
+  }
 
   const onsubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,7 +104,10 @@ export const UpdatePage:React.FC = () => {
             <label htmlFor=' description' className='text-center text-md font-bold text-gray-700 '>description</label>
             <textarea name='description' required id='description' value={description} onChange={handleDescriptionChange} className='w-full outline-none h-15 border-2 border-gray-500 rounded-lg'></textarea>
            </div>
+          <div className='flex space-x-3'>
           {updateLoading? <Spinner />: <button className='py-3 mt-1 px-12 text-white text-center bg-teal-800 rounded-lg w-fit' type='submit'>Update</button>}
+          <button className='py-3 mt-1 px-12 text-white text-center bg-gray-400 rounded-lg w-fit' type='button' onClick={onCancelHandler}>Cancel</button>
+          </div>
 
      </form>
     </div>}
