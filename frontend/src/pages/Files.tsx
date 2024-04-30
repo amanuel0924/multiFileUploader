@@ -20,7 +20,6 @@ export const Files:React.FC = () => {
       window.location.reload();
    }
 
-  console.log(data)
     return (
       <div className='md:container flex flex-col p-4 mx-auto h-screen  shadow-lg  '>
          {loading && <Spinner />}

@@ -82,7 +82,6 @@ export const UpdatePage:React.FC = () => {
     }
   },[data])
 
-
   return (
     <>
     {loading && <Spinner />}
