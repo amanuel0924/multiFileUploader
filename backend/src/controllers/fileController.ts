@@ -48,6 +48,7 @@ export const createFile= async (req: Request, res: Response,next:NextFunction) =
 
 export const deleteFile= async (req: Request, res: Response,next:NextFunction) => {
     try {
+        console.log(__dirname)
         const { id } = req.params;
         const doc:Document|null = await Document.findByPk(id, {include: ['files']});
         if (!doc) {
