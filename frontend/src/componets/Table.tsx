@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaEdit,FaTrashAlt,FaRegEye } from "react-icons/fa";
-import { FileData} from '../utils/requests';
+import { FileData} from '../types/types';
 
 import Spinner from './Spinner';
 import { Link } from 'react-router-dom';

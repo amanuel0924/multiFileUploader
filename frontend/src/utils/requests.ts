@@ -2,31 +2,7 @@ import axios,{AxiosError} from "axios";
 import  FileDownLoad from 'js-file-download'
 import { toast } from "react-toastify";
 import {useState,useEffect} from "react";
-
-export type File ={
-  id: string;
-  documentId: string;
-  name: string;
-  size: number;
-  type: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export type Data= {
-  id: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  files: File[];
-}
-
-export type FileData = {
-files:Data[];
-  page:number;
-  pages:number;
-}
+import { Data, FileData } from "../types/types";
 
 interface UseFetchAllProps {
   pageNumber?: string;
@@ -79,29 +55,6 @@ return { data, loading, error };
 
 }
 
-export const usePost = (url: string,file: FormData) => {
-  const [data, setData] = useState<Data|null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<AxiosError>();
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .post(url,file)
-      .then((response) => {
-        setData(response.data);
-        toast.success("File uploaded successfully");
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [url,file]);
-
-return { data, loading, error };
-  }
 
 export const useDelete = (url:string) => {
 
