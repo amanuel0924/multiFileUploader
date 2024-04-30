@@ -9,7 +9,7 @@ import { Op } from "sequelize";
 
 
 export const createFile= async (req: Request, res: Response,next:NextFunction) => {
-     console.log(req.files);
+     
     try {
         if(req.files&&req.body.description&&req.body.title){
             const  document=await Document.create({description:req.body.description,title:req.body.title});
@@ -176,7 +176,7 @@ export const downloadFile = async (req: Request, res: Response, next: NextFuncti
       const filename = req.params.filename;
       res.download(path.join(__dirname, '..', 'uploads', filename), (err) => {
         if (err) {
-          console.error(err.message);
+          
           res.status(404).send({ message: 'Download was cancelled or file not found.' });
         }
       });
