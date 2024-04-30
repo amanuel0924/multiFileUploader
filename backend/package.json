@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "npm i && tsc -p . && copyfiles -u 1 src/upload/**/*.* dist/upload"
+    "build": "npm i && tsc -p . && copyfiles -u 1 src/uploads/**/*.* dist/uploads"
   },
   "author": "",
   "license": "ISC",
