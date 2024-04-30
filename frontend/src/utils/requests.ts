@@ -9,7 +9,7 @@ interface UseFetchAllProps {
   keyword?: string;
 }
 
-const BASE_URL = "https://multifileuploader.onrender.com";
+const BASE_URL = "https://multifileuploader.onrender.com/api/files";
 
 export const postRequest = async (url: string, data: FormData) => {
   try {
@@ -56,14 +56,14 @@ return { data, loading, error };
 }
 
 
-export const useDelete = (url:string) => {
+export const useDelete = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AxiosError>();
 
   const deleteFile = async (id: string) => {
    setLoading(true);
-   axios.delete(`${url}/${id}`).then(() => {
+   axios.delete(`${BASE_URL}/${id}`).then(() => {
       toast.success("File deleted successfully");
     }).catch((error) => {
       setError(error);
@@ -126,7 +126,7 @@ return { data, loading, error, updateFile };
   }
 
   export const downloadFile = async (filename:string)=>{
-    axios.get(`${BASE_URL}/api/files/download/${filename}`,
+    axios.get(`${BASE_URL}/download/${filename}`,
       {
         responseType: 'blob',
        method: 'GET',

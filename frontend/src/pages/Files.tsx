@@ -11,7 +11,7 @@ export const Files:React.FC = () => {
     const {pageNumber,keyword}=useParams()
     const {data,loading,error} = useFecheAll({pageNumber,keyword})
     const [open,setOpen]=useState(false)
-    const {loading:deleteloading,error:deleteerror,deleteFile}=useDelete('http://localhost:3031/api/files/');
+    const {loading:deleteloading,error:deleteerror,deleteFile}=useDelete();
     const [id,setId]=useState('')
     
     const handeleClick = (id:string)=>{
