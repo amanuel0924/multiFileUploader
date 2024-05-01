@@ -10,7 +10,7 @@ export const notFound = (req: Request, res: Response, next: NextFunction) => {
 export const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 
-  
+  console.log(error.message);
 
   res.status(statusCode);
   res.json({
